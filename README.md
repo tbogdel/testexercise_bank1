@@ -14,13 +14,14 @@
 - [Patterns](#patterns)
 - [Dependencies](#dependencies)
 - [Reports](#reports)
-- [Contributing](#contributing)
-- [Team](#team)
 
 ---
 
 ## Installation
-### Clone
+- Put ChromeDriver to directory:
+```
+	C:\Program Files\WebDriver\chromedriver.exe
+```
 
 - Clone this repository to your local machine using the command below:
 ```
