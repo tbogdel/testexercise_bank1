@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -16,6 +16,19 @@ import java.time.Duration;
 public class LoginTest {
 
     public WebDriver driver;
+    private String loginPageURL = "https://parabank.parasoft.com/parabank/index.htm";
+    private String invalidUsername = "invalidUsername";
+    private String invalidPassword = "invalidPassword";
+    private String unsuccessfulLoginError = "Error!";
+
+
+    // Locators
+    private By usernameField = By.xpath("//input[@name='username']");
+    private By passwordField = By.xpath("//input[@name='password']");
+    private By loginButton = By.xpath("//input[@type='submit' and @value='Log In']");
+    private By unsuccessfulLoginErrorMessage = By.xpath("//div[@id='rightPanel']/h1[@class='title']");
+    private WebDriverWait wait10Sec;
+
 
     @BeforeEach
     public void setup(){
@@ -23,31 +36,46 @@ public class LoginTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+        wait10Sec = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @Test
     public void unsuccessfulLogin() throws InterruptedException {
-        driver.get("https://parabank.parasoft.com/parabank/index.htm");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        Thread.sleep(5000);
-        driver.findElement(By.xpath("//input[@name='username']")).sendKeys("invalidUsername");
-        driver.findElement(By.xpath("//input[@name='password']")).sendKeys("invalidPassword");
-        driver.findElement(By.xpath("//input[@type='submit' and @value='Log In']")).click();
-        Thread.sleep(5000);
+        navigateToLoginPage();
 
-        String expected = "Error!";
+        waitForInputFieldAndFillText(usernameField, invalidUsername);
+
+        waitForInputFieldAndFillText(passwordField, invalidPassword);
+
+        waitForButtonClickableAndClick(loginButton);
+
+        String expected = unsuccessfulLoginError;
         String actual;
 
-        actual = driver.findElement(By.xpath("//div[@id='rightPanel']/h1[@class='title']")).getText();
-        wait.withMessage(actual);
+        actual = driver.findElement(unsuccessfulLoginErrorMessage).getText();
+        wait10Sec.withMessage(actual);
         actual = actual.trim();
         String message = String.format("Expected: %s, Actual: %s", expected, actual);
         Assert.isTrue(actual.equals(expected), message);
-
     }
 
+    private void waitForButtonClickableAndClick(By button) {
+        wait10Sec.until(ExpectedConditions.elementToBeClickable(button));
+        driver.findElement(button).click();
+    }
+
+    private void waitForInputFieldAndFillText(By usernameField, String invalidUsername) {
+        wait10Sec.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(usernameField));
+        driver.findElement(usernameField).sendKeys(invalidUsername);
+    }
+
+    private void navigateToLoginPage() {
+        driver.get(loginPageURL);
+    }
 
 
     @AfterEach
