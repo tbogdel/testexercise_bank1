@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import static com.sun.activation.registries.LogSupport.log;
 
 
-public class LoginTest extends AccountServicesTest {
+public class LoginTest {
 
     public WebDriver driver;
         private static final Logger logger = Logger.getLogger(LoginTest.class.getName());
@@ -211,13 +211,6 @@ public class LoginTest extends AccountServicesTest {
     }
 
     void dropdownSelect(String accountType) {
-        By selectElement = By.cssSelector("#type");
-        WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(selectElement));
-        Select select = new Select(dropdown);
-        select.selectByVisibleText(accountType);
-    }
-
-    void dropdownSelectB(String accountType) {
         By selectElement = By.xpath("//select[@id='type']");
         WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(selectElement));
         Select select = new Select(dropdown);

@@ -11,8 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AccountServicesTest {
-
+public class AccountServicesTest extends LoginTest {
 
     @Order(1)
     @Test
@@ -26,16 +25,13 @@ public class AccountServicesTest {
         By openNewAccountTextOne = By.xpath("//div[@id='rightPanel'] //form//p[1]");
 
 
-        LoginTest loginTest = new LoginTest();
-        loginTest.setup();
-        loginTest.registerUser();
+        registerUser();
 
-        loginTest.waitForButtonClickableAndClick(openNewAccountLink);
-        loginTest.labelVerification(openNewAccountLink, openNewAccountLinkValue);
-        loginTest.labelVerification(openNewAccountTextOne, openNewAccountTextOneValue);
-        loginTest.dropdownSelectB("SAVINGS");
+        waitForButtonClickableAndClick(openNewAccountLink);
+        labelVerification(openNewAccountLink, openNewAccountLinkValue);
+        labelVerification(openNewAccountTextOne, openNewAccountTextOneValue);
+        dropdownSelect("SAVINGS");
         Thread.sleep(5000);
-        loginTest.cleanup();
 
     }
 
