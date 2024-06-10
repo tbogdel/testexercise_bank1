@@ -38,7 +38,8 @@ public class LoginTest {
     private String customerLoginText = "Customer Login";
     private String customerSignupViewTitleValue = "Signing up is easy!";
     private String customerSignupSuccessfulText1 = "Welcome ";
-    private String customerSignupViewTextValue = "If you have an account with us you can sign-up for free instant online access. You will have to provide some personal information.";
+    private String customerSignupViewTextValue = "If you have an account with us you can sign-up for free instant online access. " +
+            "You will have to provide some personal information.";
     private String customerSignupSuccessfulViewTextValue = "Your account was created successfully. You are now logged in.";
     private String customerStreet = "customerStreet";
     private String customerCity = "customerCity";
@@ -52,16 +53,16 @@ public class LoginTest {
     private By passwordInput = By.xpath("//input[@name='password']");
     private By loginButton = By.xpath("//input[@type='submit' and @value='Log In']");
     private By logoutButton = By.xpath("//div[@id='leftPanel'] //li/a[text()='Log Out']");
-    private By unsuccessfulLoginErrorMessage = By.xpath("//div[@id='rightPanel'] //h1[contains(text(), 'Error!')]");
+    private By unsuccessfulLoginErrorMessage = By.xpath("//div[@id='rightPanel'] //h1[@class='title']");
     private By welcomeLabel = By.xpath("//div[@id='leftPanel'] //p[@class='smallText' and b[text()='Welcome'] and contains(text(), '\" + firstname + lastname + \"' )]");
     private By customerSignupSuccessfulViewTitle = By.xpath("//div[@id='rightPanel'] //h1[contains(text(), 'Welcome')]");
-    private By customerSignupSuccessfulViewText = By.xpath("//div[@id='rightPanel'] //p[contains(text(), 'Your account was created successfully. You are now logged in.')]");
-    private By accountsOverviewViewTitle = By.xpath("//div[@id='showOverview'] //h1[contains(text(), 'Accounts Overview')]");
+    private By customerSignupSuccessfulViewText = By.xpath("//div[@id='rightPanel'] //p[contains(text(), 'Your account')]");
+    private By accountsOverviewViewTitle = By.xpath("//div[@id='showOverview'] //h1[@class='title']");
     private By customerLoginLabel = By.xpath("//div[@id='leftPanel'] //h2[contains(text(), 'Customer Login')]");
     private By customerSignupButton = By.xpath("//div[@id='leftPanel'] //p/a[text()='Register']");
     private By customerSignupSubmitButton = By.xpath("//div[@id='rightPanel'] //input[@type='submit']");
     private By customerSignupViewTitle = By.xpath("//h1[contains(text(), 'Signing up is easy!')]");
-    private By customerSignupViewText = By.xpath("//p[contains(text(), 'If you have an account with us you can sign-up for free instant online access. You will have to provide some personal information.')]");
+    private By customerSignupViewText = By.xpath("//p[contains(text(), 'If you have')]");
     private By registerFirstnameInput = By.id("customer.firstName");
     private By registerLastnameInput = By.id("customer.lastName");
     private By registerStreetInput = By.id("customer.address.street");
@@ -182,7 +183,7 @@ public class LoginTest {
         } catch (NoSuchElementException e) {
             logger.severe("Text not found or incorrect: " + e.getMessage());
             actual = driver.findElement(locator).getText();
-            //wait10Sec.withMessage(actual);
+            wait10Sec.withMessage(actual);
             actual = actual.trim();
             String message = String.format("Expected: %s, Actual: %s", textExpected, actual);
             Assert.isTrue(actual.equals(textExpected), message);
@@ -200,6 +201,15 @@ public class LoginTest {
         }
     }
 
+    void waitForElementInvisibility(By locator) {
+        try {
+            wait10Sec.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        } catch (NoSuchElementException e) {
+            logger.severe("Failed to find element: " + e.getMessage());
+            // You can take a screenshot here for debugging purposes
+        }
+    }
+
     void waitForInputFieldAndFillText(By locator, String fieldName) {
         try {
             wait10Sec.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
@@ -210,15 +220,20 @@ public class LoginTest {
         }
     }
 
-    void dropdownSelect(String accountType) {
-        By selectElement = By.xpath("//select[@id='type']");
-        WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(selectElement));
+    void dropdownSelect(By locator, String value) {
+        //By selectElement = By.xpath("//select[@id='type']");
+        WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
         Select select = new Select(dropdown);
-        select.selectByVisibleText(accountType);
+        select.selectByVisibleText(value);
     }
 
+    public String getDropdownValue(By locator) {
+        WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        Select select = new Select(dropdown);
+        return select.getFirstSelectedOption().getText();
+    }
 
-    private void navigateToLoginPage() {
+    void navigateToLoginPage() {
         driver.get(loginPageURL);
     }
 
