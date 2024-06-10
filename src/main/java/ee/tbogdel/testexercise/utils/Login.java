@@ -84,7 +84,6 @@ public class Login {
         base.waitForInputFieldAndFillText(usernameInput, validUsername);
         base.waitForInputFieldAndFillText(passwordInput, validPassword);
         base.waitForButtonClickableAndClick(loginButton);
-        //assertTrue(driver.getCurrentUrl().contains("overview"));
         base.labelVerification(welcomeLabel, welcomeUserName);
         base.labelVerification(accountsOverviewViewTitle, accountsOverview);
 

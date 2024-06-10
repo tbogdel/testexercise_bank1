@@ -1,18 +1,18 @@
 package ee.tbogdel.testexercise.utils;
 
-import dev.failsafe.internal.util.Assert;
+import org.testng.Assert;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.logging.Logger;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
+
 
 public class Base {
 
@@ -54,14 +54,9 @@ public class Base {
         String actual;
         try {
             wait10Sec.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
-        } catch (NoSuchElementException e) {
-            logger.severe("Text not found or incorrect: " + e.getMessage());
-            actual = driver.findElement(locator).getText();
-            wait10Sec.withMessage(actual);
-            actual = actual.trim();
-            String message = String.format("Expected: %s, Actual: %s", textExpected, actual);
-            Assert.isTrue(actual.equals(textExpected), message);
-            // You can take a screenshot here for debugging purposes
+        } catch (Exception e) {
+            screenshot();
+            Assert.fail("TEST FAILED: Expected element not found " + locator + " " + textExpected);
         }
     }
 
@@ -69,18 +64,18 @@ public class Base {
         try {
             wait10Sec.until(ExpectedConditions.elementToBeClickable(button));
             driver.findElement(button).click();
-        } catch (NoSuchElementException e) {
-            logger.severe("Failed to click button: " + e.getMessage());
-            // You can take a screenshot here for debugging purposes
+        } catch (Exception e) {
+            screenshot();
+            Assert.fail("TEST FAILED: Expected element not found or not clickable " + button);
         }
     }
 
     void waitForElementInvisibility(By locator) {
         try {
             wait10Sec.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-        } catch (NoSuchElementException e) {
-            logger.severe("Failed to find element: " + e.getMessage());
-            // You can take a screenshot here for debugging purposes
+        } catch (Exception e) {
+            screenshot();
+            Assert.fail("TEST FAILED: Element is visible " + locator);
         }
     }
 
@@ -88,23 +83,35 @@ public class Base {
         try {
             wait10Sec.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
             driver.findElement(locator).sendKeys(fieldName);
-        } catch (NoSuchElementException e) {
-            logger.severe(fieldName + " field not found: " + e.getMessage());
-            // You can take a screenshot here for debugging purposes
+        } catch (Exception e) {
+            screenshot();
+            Assert.fail("TEST FAILED: Field not found " + locator);
         }
     }
 
     void dropdownSelect(By locator, String value) {
-        //By selectElement = By.xpath("//select[@id='type']");
-        WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        Select select = new Select(dropdown);
-        select.selectByVisibleText(value);
+        try {
+            WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            Select select = new Select(dropdown);
+            select.selectByVisibleText(value);
+
+        } catch (Exception e) {
+            screenshot();
+            Assert.fail("TEST FAILED: Element not found " + locator);
+        }
     }
 
     public String getDropdownValue(By locator) {
         WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
         Select select = new Select(dropdown);
         return select.getFirstSelectedOption().getText();
+    }
+
+    @Step("User takes a screenshot.")
+    @Attachment
+    public byte[] screenshot() {
+        return ((TakesScreenshot) this.driver)
+                .getScreenshotAs(OutputType.BYTES);
     }
 
 }
