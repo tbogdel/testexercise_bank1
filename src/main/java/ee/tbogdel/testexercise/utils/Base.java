@@ -21,7 +21,7 @@ public class Base {
     private static final Logger logger = Logger.getLogger(Base.class.getName());
 
     public Login login;
-    //public MainMenu mainMenu;
+    public MainMenu mainMenu;
     public AccountServices accountServices;
 
 
@@ -39,7 +39,7 @@ public class Base {
         this.wait10Sec = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         this.login = new Login(driver, wait10Sec);
-        //this.mainMenu = new MainMenu(driver, wait10Sec);
+        this.mainMenu = new MainMenu(driver, wait10Sec);
         this.accountServices = new AccountServices(driver, wait10Sec);
     }
 

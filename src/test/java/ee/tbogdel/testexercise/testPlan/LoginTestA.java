@@ -13,14 +13,28 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 public class LoginTestA extends Base {
 
+    @Test
+    void successfulLogin() throws InterruptedException {
+        login.successfulLogin();
+    }
+
+    @Test
+    void userLogout() throws InterruptedException {
+        login.userLogout();
+    }
+
+    @Test
+    void unsuccessfulLoginWithInvalidUsername() throws InterruptedException {
+        login.unsuccessfulLoginWithInvalidUsername();
+    }
+
+    @Test
+    void unsuccessfulLoginWithInvalidPassword() throws InterruptedException {
+        login.unsuccessfulLoginWithInvalidPassword();
+    }
 
     @Test
     void testRegisterUser() throws InterruptedException {
         login.registerUser();
-    }
-
-    @Test
-    void testUn() throws InterruptedException {
-        login.unsuccessfulLoginWithInvalidPassword();
     }
 }

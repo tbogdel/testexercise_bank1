@@ -17,14 +17,13 @@ public class Login {
 
     private final Base base;
 
-    public Login(WebDriver webDriver, WebDriverWait wait){
+    public Login (WebDriver webDriver, WebDriverWait wait){
         driver = webDriver;
         wait10Sec = wait;
         base = new Base(webDriver, wait10Sec);
-
     }
 
-
+    // Labels and values
     private static final Logger logger = Logger.getLogger(Login.class.getName());
     private String loginPageURL = "https://parabank.parasoft.com/parabank/index.htm";
     private String invalidUsername = "invalidUsername";
@@ -152,7 +151,8 @@ public class Login {
 
     }
 
-    void navigateToLoginPage() {
+    @Step ("Navigate to login page")
+    public void navigateToLoginPage() {
         driver.get(loginPageURL);
     }
 

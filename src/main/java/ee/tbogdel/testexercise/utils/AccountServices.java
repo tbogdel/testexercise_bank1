@@ -11,11 +11,9 @@ public class AccountServices {
 
     public final WebDriver driver;
     private final WebDriverWait wait10Sec;
-
     private final Base base;
 
-
-    public AccountServices(WebDriver webDriver, WebDriverWait wait){
+    public AccountServices (WebDriver webDriver, WebDriverWait wait){
         driver = webDriver;
         wait10Sec = wait;
         base = new Base(driver, wait10Sec);
@@ -24,6 +22,7 @@ public class AccountServices {
     @Step ("Open new Account for Savings and Create account")
     public void openNewAccountForSavings() throws InterruptedException {
 
+        // Labels and values
         String openNewAccountLinkValue = "Open New Account";
         String openNewAccountButtonValue = "Open New Account";
         String openNewAccountTextOneValue = "What type of Account would you like to open?";
