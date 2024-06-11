@@ -6,10 +6,10 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-//@Log4j2
 @Feature("Account services functionality")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -18,7 +18,8 @@ public class AccountServicesTest extends Base {
     @Story("As a user, I want to open account for savings")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    void testA() throws InterruptedException {
+    @Order(1)
+    void testOpenAccountForSavings() throws InterruptedException {
         login.registerUser();
         accountServices.openNewAccountForSavings();
     }

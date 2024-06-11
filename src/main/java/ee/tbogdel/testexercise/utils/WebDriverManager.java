@@ -9,6 +9,7 @@ import java.time.Duration;
 public class WebDriverManager {
     public static WebDriver initializeWebDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\WebDriver\\chromedriver.exe");
+        System.setProperty("allure.results.directory", "target\\allure-results");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         WebDriver driver = new ChromeDriver(options);

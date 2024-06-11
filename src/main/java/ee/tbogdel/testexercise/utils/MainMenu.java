@@ -23,7 +23,7 @@ public class MainMenu {
     //Locators
     By openNewAccountLink = By.xpath("//div[@id='mainPanel'] //li/a[text()='Products']");
 
-    public void openProductsView() throws InterruptedException {
+    public void openProductsView() {
         base.waitForButtonClickableAndClick(openNewAccountLink);
         base.waitForElementInvisibility(openNewAccountLink);
         assertTrue(driver.getCurrentUrl().contains("products"));

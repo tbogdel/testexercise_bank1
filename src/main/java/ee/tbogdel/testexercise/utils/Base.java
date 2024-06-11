@@ -9,7 +9,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.logging.Logger;
 
 import java.time.Duration;
 
@@ -18,7 +17,6 @@ public class Base {
 
     public WebDriver driver;
     public WebDriverWait wait10Sec;
-    private static final Logger logger = Logger.getLogger(Base.class.getName());
 
     public Login login;
     public MainMenu mainMenu;
@@ -49,6 +47,7 @@ public class Base {
         driver = null;
     }
 
+    @Step("Label verification for text {1}")
     void labelVerification(By locator, String textExpected) {
 
         String actual;
@@ -56,39 +55,47 @@ public class Base {
             wait10Sec.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
         } catch (Exception e) {
             screenshot();
+            e.printStackTrace();
             Assert.fail("TEST FAILED: Expected element not found " + locator + " " + textExpected);
         }
     }
 
+    @Step ("Wait for button {0} to be clickable and click")
     void waitForButtonClickableAndClick(By button) {
         try {
             wait10Sec.until(ExpectedConditions.elementToBeClickable(button));
             driver.findElement(button).click();
         } catch (Exception e) {
             screenshot();
+            e.printStackTrace();
             Assert.fail("TEST FAILED: Expected element not found or not clickable " + button);
         }
     }
 
+    @Step("Wait for element to be invisible")
     void waitForElementInvisibility(By locator) {
         try {
             wait10Sec.until(ExpectedConditions.invisibilityOfElementLocated(locator));
         } catch (Exception e) {
             screenshot();
+            e.printStackTrace();
             Assert.fail("TEST FAILED: Element is visible " + locator);
         }
     }
 
+    @Step("Wait for input field {1} to be visible and fill in")
     void waitForInputFieldAndFillText(By locator, String fieldName) {
         try {
             wait10Sec.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
             driver.findElement(locator).sendKeys(fieldName);
         } catch (Exception e) {
             screenshot();
+            e.printStackTrace();
             Assert.fail("TEST FAILED: Field not found " + locator);
         }
     }
 
+    @Step("Select option {1} from dropdown element")
     void dropdownSelect(By locator, String value) {
         try {
             WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -97,10 +104,12 @@ public class Base {
 
         } catch (Exception e) {
             screenshot();
+            e.printStackTrace();
             Assert.fail("TEST FAILED: Element not found " + locator);
         }
     }
 
+    @Step("Get dropdown value")
     public String getDropdownValue(By locator) {
         WebElement dropdown = wait10Sec.until(ExpectedConditions.visibilityOfElementLocated(locator));
         Select select = new Select(dropdown);

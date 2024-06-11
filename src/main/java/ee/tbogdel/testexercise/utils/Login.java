@@ -4,9 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.logging.Logger;
-
 import static com.sun.activation.registries.LogSupport.log;
 
 
@@ -28,13 +26,13 @@ public class Login {
     private String loginPageURL = "https://parabank.parasoft.com/parabank/index.htm";
     private String invalidUsername = "invalidUsername";
     private String invalidPassword = "invalidPassword";
-    private String validUsername = "a2";
+    private String validUsername = "testuser1";
     private String validPassword = "123";
     private String unsuccessfulLoginError = "Error!";
     private String accountsOverview = "Accounts Overview";
     private String login = "Log In";
-    private String customerFirstname = "John";
-    private String customerLastname = "Doe";
+    private String customerFirstname = "Piia-Noora";
+    private String customerLastname = "Putkonen";
     private String customerLoginText = "Customer Login";
     private String customerSignupViewTitleValue = "Signing up is easy!";
     private String customerSignupSuccessfulText1 = "Welcome ";
@@ -78,7 +76,7 @@ public class Login {
     @Step ("User login with valid credentials")
     public void successfulLogin() throws InterruptedException {
 
-        String welcomeUserName = "Welcome" + customerFirstname + customerLastname;
+        String welcomeUserName = "Welcome" + " " +customerFirstname + " " + customerLastname;
 
         navigateToLoginPage();
         base.waitForInputFieldAndFillText(usernameInput, validUsername);

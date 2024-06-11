@@ -6,6 +6,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
@@ -17,31 +18,34 @@ public class LoginTest extends Base {
 
     @Story("As a user, I want to be able to login and Logout from system")
     @Severity(SeverityLevel.CRITICAL)
-    @Feature("User login")
     @Test()
-    void successfulLogin() throws InterruptedException {
+    @Order(1)
+    void testSuccessfulLogin() throws InterruptedException {
         login.successfulLogin();
         login.userLogout();
     }
 
     @Story("As a user, I want to be able to login")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @Test
-    void unsuccessfulLoginWithInvalidUsername() throws InterruptedException {
+    @Order(2)
+    void testUnsuccessfulLoginWithInvalidUsername() throws InterruptedException {
         login.unsuccessfulLoginWithInvalidUsername();
     }
 
     @Story("As a user, I want to be able to login")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.NORMAL)
     @Test
-    void unsuccessfulLoginWithInvalidPassword() throws InterruptedException {
+    @Order(3)
+    void testUnsuccessfulLoginWithInvalidPassword() throws InterruptedException {
         login.unsuccessfulLoginWithInvalidPassword();
     }
 
 
-    @Story("As a user, I want to open login page")
+    @Story("As a user, I want to make sign up")
     @Severity(SeverityLevel.CRITICAL)
     @Test
+    @Order(4)
     void testRegisterUser() throws InterruptedException {
         login.registerUser();
     }

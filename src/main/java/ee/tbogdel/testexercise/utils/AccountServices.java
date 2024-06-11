@@ -1,8 +1,6 @@
 package ee.tbogdel.testexercise.utils;
 
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,8 +17,8 @@ public class AccountServices {
         base = new Base(driver, wait10Sec);
     }
 
-    @Step ("Open new Account for Savings and Create account")
-    public void openNewAccountForSavings() throws InterruptedException {
+    @Step ("Open Account for Savings and Create account")
+    public void openNewAccountForSavings() {
 
         // Labels and values
         String openNewAccountLinkValue = "Open New Account";
@@ -46,13 +44,15 @@ public class AccountServices {
         By openNewAccountButton = By.xpath("//div[@id='openAccountForm'] //input[@type='button']");
         By openAccountViewTitle = By.xpath("//div[@id='openAccountForm'] //h1[@class='title']");
 
-        //registerUser();
 
+        //Click on option 'Open New Account'
         base.labelVerification(openNewAccountLink, openNewAccountLinkValue);
         base.waitForButtonClickableAndClick(openNewAccountLink);
 
+        //Verify 'Open New Account' view is opened
         base.labelVerification(openAccountViewTitle, openAccountViewTitleValue);
 
+        //Verify all texts in view and Select Savings from dropdown
         base.labelVerification(openNewAccountTextOne, openNewAccountTextOneValue);
         base.dropdownSelect(accountTypeDropdown,"SAVINGS");
         base.getDropdownValue(accountTypeDropdown);
@@ -60,9 +60,11 @@ public class AccountServices {
         base.labelVerification(openNewAccountTextTwo, openNewAccountTextTwoValue);
         base.getDropdownValue(fromAccountIdDropdown);
 
+        //Press on 'Open new account' button
         base.labelVerification(openNewAccountButton, openNewAccountButtonValue);
         base.waitForButtonClickableAndClick(openNewAccountButton);
 
+        //Verify operation result and text in opened view
         base.labelVerification(openAccountResultViewTitle, openAccountResultViewTitleValue);
         base.labelVerification(openAccountResultViewTextOne, openAccountResultViewTextOneValue);
         base.labelVerification(openAccountResultViewTextTwo, openAccountResultViewTextTwoValue);

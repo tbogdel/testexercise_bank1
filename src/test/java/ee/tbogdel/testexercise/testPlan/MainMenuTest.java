@@ -6,6 +6,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
@@ -16,7 +17,8 @@ public class MainMenuTest extends Base {
     @Story("As a user, I want to open Products from main menu")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    void openProductsView() throws InterruptedException {
+    @Order(1)
+    void testOpenProductsView() {
         login.navigateToLoginPage();
         mainMenu.openProductsView();
     }
