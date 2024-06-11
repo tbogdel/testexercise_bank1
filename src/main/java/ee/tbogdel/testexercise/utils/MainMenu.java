@@ -21,7 +21,7 @@ public class MainMenu {
     // Labels and values
 
     //Locators
-    By openNewAccountLink = By.xpath("//div[@id='mainPanel'] //li/a[text()='Products']");
+    public By openNewAccountLink = By.xpath("//div[@id='mainPanel'] //li/a[text()='Products']");
 
     public void openProductsView() {
         base.waitForButtonClickableAndClick(openNewAccountLink);

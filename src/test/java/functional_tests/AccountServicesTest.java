@@ -1,4 +1,4 @@
-package ee.tbogdel.testexercise.testPlan;
+package functional_tests;
 
 import ee.tbogdel.testexercise.utils.Base;
 import io.qameta.allure.Feature;

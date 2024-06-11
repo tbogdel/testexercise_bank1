@@ -17,33 +17,33 @@ public class AccountServices {
         base = new Base(driver, wait10Sec);
     }
 
+    // Labels and values
+    private String openNewAccountLinkValue = "Open New Account";
+    private String openNewAccountButtonValue = "Open New Account";
+    private String openNewAccountTextOneValue = "What type of Account would you like to open?";
+    private String openNewAccountTextTwoValue = "A minimum of $100.00 must be deposited into this account at time of opening. " +
+            "Please choose an existing account to transfer funds into the new account.";
+    private String openAccountResultViewTitleValue = "Account Opened!";
+    private String openAccountViewTitleValue = "Open New Account";
+    private String openAccountResultViewTextOneValue = "Congratulations, your account is now open.";
+    private String openAccountResultViewTextTwoValue = "Your new account number:";
+
+    //Locators
+    private By openNewAccountLink = By.xpath("//div[@id='leftPanel'] //li/a[text()='Open New Account']");
+    private By openNewAccountTextOne = By.xpath("//div[@id='rightPanel'] //form//p[1]");
+    private By openNewAccountTextTwo = By.xpath("//div[@id='rightPanel'] //form//p[2]");
+    private By openAccountResultViewTitle = By.xpath("//div[@id='openAccountResult'] //h1[@class='title']");
+    private By openAccountResultViewTextOne = By.xpath("//div[@id='openAccountResult'] //p[contains(text(), 'Congratulations')]");
+    private By openAccountResultViewTextTwo = By.xpath("//div[@id='openAccountResult'] //b");
+    private By fromAccountIdDropdown = By.xpath("//select[@id='fromAccountId']");
+    private By newAccountId = By.xpath("//a[@id='newAccountId']");
+    private By accountTypeDropdown = By.xpath("//select[@id='type']");
+    private By openNewAccountButton = By.xpath("//div[@id='openAccountForm'] //input[@type='button']");
+    private By openAccountViewTitle = By.xpath("//div[@id='openAccountForm'] //h1[@class='title']");
+
+
     @Step ("Open Account for Savings and Create account")
     public void openNewAccountForSavings() {
-
-        // Labels and values
-        String openNewAccountLinkValue = "Open New Account";
-        String openNewAccountButtonValue = "Open New Account";
-        String openNewAccountTextOneValue = "What type of Account would you like to open?";
-        String openNewAccountTextTwoValue = "A minimum of $100.00 must be deposited into this account at time of opening. " +
-                "Please choose an existing account to transfer funds into the new account.";
-        String openAccountResultViewTitleValue = "Account Opened!";
-        String openAccountViewTitleValue = "Open New Account";
-        String openAccountResultViewTextOneValue = "Congratulations, your account is now open.";
-        String openAccountResultViewTextTwoValue = "Your new account number:";
-
-        //Locators
-        By openNewAccountLink = By.xpath("//div[@id='leftPanel'] //li/a[text()='Open New Account']");
-        By openNewAccountTextOne = By.xpath("//div[@id='rightPanel'] //form//p[1]");
-        By openNewAccountTextTwo = By.xpath("//div[@id='rightPanel'] //form//p[2]");
-        By openAccountResultViewTitle = By.xpath("//div[@id='openAccountResult'] //h1[@class='title']");
-        By openAccountResultViewTextOne = By.xpath("//div[@id='openAccountResult'] //p[contains(text(), 'Congratulations')]");
-        By openAccountResultViewTextTwo = By.xpath("//div[@id='openAccountResult'] //b");
-        By fromAccountIdDropdown = By.xpath("//select[@id='fromAccountId']");
-        By newAccountId = By.xpath("//a[@id='newAccountId']");
-        By accountTypeDropdown = By.xpath("//select[@id='type']");
-        By openNewAccountButton = By.xpath("//div[@id='openAccountForm'] //input[@type='button']");
-        By openAccountViewTitle = By.xpath("//div[@id='openAccountForm'] //h1[@class='title']");
-
 
         //Click on option 'Open New Account'
         base.labelVerification(openNewAccountLink, openNewAccountLinkValue);

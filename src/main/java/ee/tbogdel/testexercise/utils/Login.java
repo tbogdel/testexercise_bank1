@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.logging.Logger;
 import static com.sun.activation.registries.LogSupport.log;
 
 
@@ -12,7 +11,6 @@ public class Login {
 
     public final WebDriver driver;
     private final WebDriverWait wait10Sec;
-
     private final Base base;
 
     public Login (WebDriver webDriver, WebDriverWait wait){
@@ -22,7 +20,6 @@ public class Login {
     }
 
     // Labels and values
-    private static final Logger logger = Logger.getLogger(Login.class.getName());
     private String loginPageURL = "https://parabank.parasoft.com/parabank/index.htm";
     private String invalidUsername = "invalidUsername";
     private String invalidPassword = "invalidPassword";
@@ -74,7 +71,7 @@ public class Login {
 
 
     @Step ("User login with valid credentials")
-    public void successfulLogin() throws InterruptedException {
+    public void successfulLogin() {
 
         String welcomeUserName = "Welcome" + " " +customerFirstname + " " + customerLastname;
 
@@ -88,7 +85,7 @@ public class Login {
     }
 
     @Step ("User log out")
-    public void userLogout() throws InterruptedException {
+    public void userLogout() {
 
         base.waitForButtonClickableAndClick(logoutButton);
         base.labelVerification(customerLoginLabel, customerLoginText);
@@ -97,7 +94,7 @@ public class Login {
     }
 
     @Step ("User login with invalid username")
-    public void unsuccessfulLoginWithInvalidUsername() throws InterruptedException {
+    public void unsuccessfulLoginWithInvalidUsername() {
 
         navigateToLoginPage();
         log("Error happened");
@@ -109,7 +106,7 @@ public class Login {
     }
 
     @Step ("User login with invalid password")
-    public void unsuccessfulLoginWithInvalidPassword() throws InterruptedException {
+    public void unsuccessfulLoginWithInvalidPassword() {
 
         navigateToLoginPage();
         base.waitForInputFieldAndFillText(usernameInput, validUsername);
@@ -120,7 +117,7 @@ public class Login {
     }
 
     @Step ("New user registration")
-    public void registerUser() throws InterruptedException {
+    public void registerUser() {
 
         navigateToLoginPage();
         base.waitForButtonClickableAndClick(customerSignupButton);

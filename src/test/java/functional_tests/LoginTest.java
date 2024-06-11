@@ -1,4 +1,4 @@
-package ee.tbogdel.testexercise.testPlan;
+package functional_tests;
 
 import ee.tbogdel.testexercise.utils.Base;
 import io.qameta.allure.Feature;
@@ -20,7 +20,7 @@ public class LoginTest extends Base {
     @Severity(SeverityLevel.CRITICAL)
     @Test()
     @Order(1)
-    void testSuccessfulLogin() throws InterruptedException {
+    void testSuccessfulLogin() {
         login.successfulLogin();
         login.userLogout();
     }
@@ -29,7 +29,7 @@ public class LoginTest extends Base {
     @Severity(SeverityLevel.NORMAL)
     @Test
     @Order(2)
-    void testUnsuccessfulLoginWithInvalidUsername() throws InterruptedException {
+    void testUnsuccessfulLoginWithInvalidUsername() {
         login.unsuccessfulLoginWithInvalidUsername();
     }
 
@@ -37,7 +37,7 @@ public class LoginTest extends Base {
     @Severity(SeverityLevel.NORMAL)
     @Test
     @Order(3)
-    void testUnsuccessfulLoginWithInvalidPassword() throws InterruptedException {
+    void testUnsuccessfulLoginWithInvalidPassword() {
         login.unsuccessfulLoginWithInvalidPassword();
     }
 
@@ -46,7 +46,7 @@ public class LoginTest extends Base {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     @Order(4)
-    void testRegisterUser() throws InterruptedException {
+    void testRegisterUser() {
         login.registerUser();
     }
 }
