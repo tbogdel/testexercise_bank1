@@ -65,5 +65,5 @@ Note: if your browser can not open report then replace generated address by loca
 
 Report example:
 
-<img src="C:\Users\eetatbogd\IdeaProjects\testexercise_bank1\src\test\resources\Allure report.png"/>
+<img src="https://github.com/tbogdel/testexercise_bank1/blob/main/src/test/resources/Allure%20report.png"/>
 
